@@ -43,13 +43,13 @@ through input and output structures.
 Typical patterns:
 
 - plain Python dictionaries (`Dict[str, Any]`)  
-- dataclasses used as input / output types  
+- dataclasses used as input or output types  
 - domain-specific objects for foundations (e.g. order book, trajectories)
 
 **Interpretation:**
 
-- For a given operation, S is the set of all valid input states  
-  that the Kernel accepts and transforms into outputs.
+For a given operation, S is the set of all valid input states  
+that the Kernel accepts and transforms into outputs.
 
 In composed systems (orchestrators), S may be the aggregate of:
 
@@ -69,7 +69,7 @@ Formally:
 
 - select a PsiDefinition ψ  
 - provide input state `x` (possibly combined with parameters)  
-- execute `Kernel.run(ψ, x, context)`  
+- execute `Kernel.execute(ψ, x, context)`  
 - obtain output state `y` and an ExecutionTrace
 
 This entire run can be interpreted as:
@@ -83,8 +83,8 @@ where:
 
 **Key requirement:**
 
-- the operation implementation must be deterministic for KL to align  
-  with the theory.
+The operation implementation must be deterministic for KL to align  
+with the theory.
 
 ---
 
@@ -92,11 +92,11 @@ where:
 
 Behaviour V in KL can be interpreted at multiple levels.
 
-#### Level 1 - Single Operation Sequence
+#### Level 1: Single Operation Sequence
 
 For a single PsiDefinition ψ executed multiple times:
 
-- V is the sequence of Kernel runs with ψ and their corresponding inputs.
+V is the sequence of Kernel runs with ψ and their corresponding inputs.
 
 Example:
 
@@ -106,12 +106,12 @@ Example:
 
 Each run is one Δ.
 
-#### Level 2 - Multi Operation Program
+#### Level 2: Multi Operation Program
 
 For a composed system:
 
-- V is the ordered sequence of all Kernel runs across multiple ψ,  
-  orchestrated by a controlling layer.
+V is the ordered sequence of all Kernel runs across multiple ψ,  
+orchestrated by a controlling layer.
 
 Example:
 
@@ -149,13 +149,13 @@ It is sufficient to:
 In KL, governance can be implemented as:
 
 - a separate evaluation layer that inspects execution traces,  
-  input / output bindings and envelope metadata.
+  input or output bindings and envelope metadata.
 
 Given a sequence of Kernel runs (behaviour) and their traces:
 
 - G reads the collected traces  
-- G applies deterministic rules / policies  
-- G classifies behaviour (valid / invalid, allowed / disallowed, etc.)
+- G applies deterministic rules or policies  
+- G classifies behaviour (valid or invalid, allowed or disallowed, etc.)
 
 Structurally, this is exactly:
 
@@ -190,7 +190,7 @@ Examples:
 In all cases, L is computed from V (behaviour) and its traces,  
 and describes:
 
-- which regions of behaviour are inside / outside acceptable ranges.
+- which regions of behaviour are inside or outside acceptable ranges.
 
 This corresponds directly to:
 
@@ -260,26 +260,22 @@ only that:
 
 To explicitly realise V and T in KL, an orchestrator can:
 
-1. Maintain a list of execution records, e.g.:
+1. Maintain a list of execution records:
 
-   ```python
-   behaviour = []
-For each Kernel call, record:
+```python
+behaviour = []
+```
 
-t (index)
+2. For each Kernel call, record:
+   - t (index)
+   - psi
+   - input state
+   - output state
+   - ExecutionTrace
 
-psi
+3. Append an entry:
 
-input state
-
-output state
-
-ExecutionTrace
-
-Append an entry:
-
-python
-Code kopieren
+```python
 behaviour.append({
     "t": t,
     "psi": psi,
@@ -287,89 +283,79 @@ behaviour.append({
     "output": result.output,
     "trace": result.trace,
 })
-After execution, pass behaviour to:
+```
 
-a governance evaluator G(behaviour)
-
-a boundary evaluator L(behaviour)
+4. After execution, pass behaviour to:
+   - a governance evaluator `G(behaviour)`
+   - a boundary evaluator `L(behaviour)`
 
 This pattern gives KL an explicit, theory-aligned behaviour representation.
 
-6. Determinism Requirements for KL
+---
+
+## 6. Determinism Requirements for KL
+
 To fully align with KL Execution Theory, a KL-based system should:
 
-Ensure that operation implementations are deterministic:
+1. Ensure that operation implementations are deterministic:
+   - no uncontrolled randomness
+   - no hidden global state
+   - no time-dependent logic that affects results
 
-no uncontrolled randomness
+2. Make environment dependencies explicit:
+   - encode configuration into the state or context
+   - avoid referencing mutable global structures directly
 
-no hidden global state
+3. Treat non-deterministic tasks as outside the core deterministic model,  
+   or wrap them with explicit logging and normalisation.
 
-no time-dependent logic that affects results
-
-Make environment dependencies explicit, for example:
-
-encode configuration into the state or context
-
-avoid referencing mutable global structures directly
-
-Treat non-deterministic tasks as outside the core deterministic model,
-or wrap them with explicit logging and normalisation.
-
-This does not forbid non-deterministic components,
+This does not forbid non-deterministic components,  
 but it separates them from the deterministic core.
 
-7. Governance and Boundaries as KL Modules
+---
+
+## 7. Governance and Boundaries as KL Modules
+
 KL can host governance and boundary evaluation as separate modules:
 
-kl_governance - implements G(V)
-
-kl_boundaries - implements L(V)
+- `kl_governance` - implements G(V)
+- `kl_boundaries` - implements L(V)
 
 These modules:
 
-do not execute Kernel operations
-
-only read behaviour and trace data
-
-produce structured, deterministic evaluations
+- do not execute Kernel operations
+- only read behaviour and trace data
+- produce structured, deterministic evaluations
 
 This preserves the separation between:
 
-execution
-
-evaluation
-
-constraint description
+- execution
+- evaluation
+- constraint description
 
 in strict alignment with the theory.
 
-8. Summary of Correspondence
+---
+
+## 8. Summary of Correspondence
+
 The mapping between KL Execution Theory and KL Kernel Logic is:
 
-S - concrete Python-level input / output state structures
+- **S** - concrete Python-level input or output state structures
+- **Δ** - individual deterministic Kernel runs of a Psi
+- **V** - ordered sequence of Kernel runs (behaviour)
+- **t** - index of each Kernel run in V
+- **T** - ExecutionTrace plus state snapshots
+- **G** - governance modules evaluating behaviour sequences
+- **L** - boundary modules describing constraint regions over behaviour
 
-Δ - individual deterministic Kernel runs of a Psi
-
-V - ordered sequence of Kernel runs (behaviour)
-
-t - index of each Kernel run in V
-
-T - ExecutionTrace plus state snapshots
-
-G - governance modules evaluating behaviour sequences
-
-L - boundary modules describing constraint regions over behaviour
-
-KL is therefore a concrete execution engine that can be seen as
+KL is therefore a concrete execution engine that can be seen as  
 one implementation of the abstract theory defined in this repository.
 
-Future KL modules and orchestrators should aim to make this mapping
+Future KL modules and orchestrators should aim to make this mapping  
 explicit, so that:
 
-traces are stable
-
-behaviour is replayable
-
-governance and boundaries can be evaluated independently
-
-the theory can serve as a reference for correctness and design.
+- traces are stable
+- behaviour is replayable
+- governance and boundaries can be evaluated independently
+- the theory can serve as a reference for correctness and design.
