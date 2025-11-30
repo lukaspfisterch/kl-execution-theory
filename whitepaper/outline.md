@@ -188,7 +188,7 @@ Sections can be expanded or re-ordered as the theory matures.
 ### 8.1 Determinism vs Flexibility
 
 - Why determinism is central  
-- How non-deterministic components can be wrapped or isolated
+- How nondeterministic components can be wrapped or isolated
 
 ### 8.2 Total Order vs Concurrency
 

@@ -102,7 +102,7 @@ The following are *not* valid Deltas:
 
 - Random number generation  
 - Time-dependent operations  
-- Non-deterministic IO  
+- Nondeterministic IO  
 - Parallel behaviour  
 - Partially applied operations  
 - Any step whose outcome depends on external mutable context

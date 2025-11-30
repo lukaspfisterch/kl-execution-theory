@@ -2,7 +2,7 @@
 
 Modern computational, financial and biological systems operate under  
 increasing complexity and opacity. They rely on execution models that  
-are often ad-hoc, non-deterministic and difficult to audit.  
+are often ad-hoc, nondeterministic and difficult to audit.  
 This makes reproducibility, governance and policy alignment  
 hard to guarantee in practice.
 

@@ -306,10 +306,10 @@ To fully align with KL Execution Theory, a KL-based system should:
    - encode configuration into the state or context
    - avoid referencing mutable global structures directly
 
-3. Treat non-deterministic tasks as outside the core deterministic model,  
+3. Treat nondeterministic tasks as outside the core deterministic model,  
    or wrap them with explicit logging and normalisation.
 
-This does not forbid non-deterministic components,  
+This does not forbid nondeterministic components,  
 but it separates them from the deterministic core.
 
 ---

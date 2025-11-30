@@ -15,7 +15,7 @@ DBL is treated as a structured application of the axioms:
 
 DBL is an architectural layer that sits between:
 
-- non-deterministic, heterogeneous systems (AI models, services, APIs)  
+- nondeterministic, heterogeneous systems (AI models, services, APIs)  
 - deterministic, auditable execution cores
 
 In KL Execution Theory terms:
@@ -81,7 +81,7 @@ Each such operation is treated as:
 DBL is explicitly responsible for:
 
 - rejecting operations that cannot be made deterministic  
-- wrapping non-deterministic components in a deterministic contract  
+- wrapping nondeterministic components in a deterministic contract  
   (e.g. by fixing seeds, normalising inputs, restricting side effects)
 
 ### 3.3 Behaviour (V) and Time (t)

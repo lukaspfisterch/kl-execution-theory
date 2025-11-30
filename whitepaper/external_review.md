@@ -32,7 +32,7 @@ The formal definitions are well-structured and comprehensible. They form a consi
 
 #### Determinism in Stochastic Domains
 
-Modeling non-deterministic components requires clean wrapping strategies. Particularly in machine learning, further details are necessary.
+Modeling nondeterministic components requires clean wrapping strategies. Particularly in machine learning, further details are necessary.
 
 #### Total Order vs. Real-World Parallelism
 
@@ -125,12 +125,12 @@ The organization into `axioms/`, `formal/`, `implementations/`, and `whitepaper/
 
 **Non-Deterministic Components**
 
-The practical handling of non-deterministic components, particularly in the domain of modern AI, requires additional formal constructions. The theory acknowledges this in `axioms/01_delta.md` by excluding randomness and non-deterministic I/O from valid Deltas, but the "wrapping" approach mentioned in `implementations/mapping_to_dbl.md` needs more detailed specification.
+The practical handling of nondeterministic components, particularly in the domain of modern AI, requires additional formal constructions. The theory acknowledges this in `axioms/01_delta.md` by excluding randomness and nondeterministic I/O from valid Deltas, but the "wrapping" approach mentioned in `implementations/mapping_to_dbl.md` needs more detailed specification.
 
 Suggested directions:
 - Formal definition of deterministic wrappers for stochastic processes
 - Mechanisms for seeded randomness that preserves deterministic replay
-- Treatment of external API calls with non-deterministic response times
+- Treatment of external API calls with nondeterministic response times
 
 **Parallelism and Total Order**
 
