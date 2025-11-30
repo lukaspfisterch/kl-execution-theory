@@ -1,6 +1,6 @@
 # External Review - KL Execution Theory
 
-**Formal Engineering Review**
+**Declarative Specification Review**
 
 ---
 
@@ -8,140 +8,141 @@
 
 ### Overview
 
-KL Execution Theory defines a minimal, axiomatic structure for deterministic execution.  
-The five axioms (Delta, Behaviour, Time, Governance, Boundaries) are consistent and sufficiently separated in purpose.  
-The framework is domain-neutral and focuses on execution as an ordered, fully observable process.
+KL Execution Theory defines a minimal axiomatic structure for deterministic execution.  
+The model consists of five axioms: Delta, Behaviour, Time, Governance, Boundaries.  
+Each axiom introduces one conceptual construct and one relation.
 
-### Strengths
+### Strengths (Descriptive)
 
-**Minimal axiom set**
+**Axiom separation**
 
-The axioms cover essential concepts without redundancy. Each axiom introduces a distinct structural role.
+The axioms address distinct roles: state transition, ordered behaviour, logical indexing, governance evaluation, boundary formulation.
 
-**Clear separation of concerns**
+**Internal coherence**
 
-Execution (Δ, V, t) and evaluation (G, L) are structurally isolated. This prevents interdependence and supports independent verification.
-
-**Domain independence**
-
-Mappings to KL Kernel Logic, DBL, and several domain examples preserve the axiomatic structure unchanged.
-
-**Formal clarity**
-
-The definitions follow a consistent pattern: objects, relations, constraints. The model is understandable without heavy formal apparatus.
-
-### Challenges
-
-**Handling nondeterministic components**
-
-The exclusion of nondeterministic Δ is clear. Practical use requires defined mechanisms for deterministic wrapping of stochastic or external systems.
-
-**Total order construction in concurrent settings**
-
-The theory assumes a total order of behaviour V. A deterministic serialization method for concurrent or distributed systems should be specified.
-
-**Operational definitions of G and L**
-
-The axioms define G and L abstractly. Practical forms, standard constructions, and computational approaches are still needed.
-
-**Positioning among related models**
-
-Explicit relation to classical formalisms (state machines, operational semantics, transactional models, process calculi) would improve clarity of scope.
-
-### Conclusion
-
-The theory is internally consistent and technically sound.  
-Further work is required to translate it into operational constructs, tooling, and reference implementations.
-
----
-
-## 2. Executive Summary
-
-KL Execution Theory defines a minimal framework for describing deterministic execution.
-
-Execution is represented through:
-
-- **Δ**: atomic transitions
-- **V**: the ordered sequence of transitions
-- **t**: the derived index over V
-
-Evaluation and constraints are expressed through:
-
-- **G**: governance as a function over V
-- **L**: boundaries as a function over V
-
-This separation allows systems to be executed, analysed, and verified without coupling policy to execution logic.
-
-The framework is applicable to domains requiring traceability, reproducibility, or independent evaluation.  
-The next steps involve reference implementations, case studies, and operational definitions of governance and boundary functions.
-
----
-
-## 3. Whitepaper Appendix: Technical Evaluation
-
-### A.1 Axiomatic Consistency
-
-The axioms are non overlapping and avoid circular dependencies.
-
-Formal documents define:
-
-- **S**: states
-- **Δ**: valid transitions
-- **V**: the behaviour trace
-- **t**: derived logical time
-- **G and L**: derived evaluators
-
-The type separation supports clarity and prevents semantic overload.
-
-### A.2 Methodological Points
+The axioms do not overlap. No axiom depends on later constructs.  
+Dependencies follow a unidirectional chain: Δ → V → t → (G, L).
 
 **Domain neutrality**
 
-Mappings preserve the axioms. Domain semantics are introduced through interpretation, not modification.
+The axioms impose no domain constraints. Domain mappings preserve the structure without modification.
 
-**Execution versus evaluation**
+**Formal alignment**
 
-The strict separation between constructing V and evaluating V reduces ambiguity and improves verifiability.
+The supporting documents follow the same pattern: objects, relations, derivations.
 
-**Documentation structure**
+### Open Areas (Descriptive)
 
-The repository structure (axioms → formal → mappings → whitepaper) is logical and supports incremental refinement.
+**Nondeterministic components**
+
+The theory excludes nondeterministic Δ.  
+Handling nondeterministic external systems requires explicit wrapper definitions.  
+This is identified as outside the current axiomatic scope.
+
+**Construction of total order**
+
+Behaviour V is defined as a total order of Δ.  
+A deterministic reduction for concurrent or distributed systems is not specified.
+
+**Operational forms of G and L**
+
+G and L are defined as functions over V.  
+Concrete constructions, composition rules, and computational strategies are not provided.
+
+**Relation to existing formalisms**
+
+Connections to classical models (state machines, operational semantics, process calculi, transactional systems) are not described.  
+This is left open.
+
+### Conclusion (Declarative)
+
+The axiomatic core is coherent and minimal.  
+Operationalisation, concurrency reduction strategies, and governance constructions are outside the current document scope.
+
+---
+
+## 2. Executive Summary (Declarative)
+
+KL Execution Theory specifies a minimal framework for deterministic execution.
+
+Execution is defined by:
+
+- **Δ**: atomic state transitions
+- **V**: ordered behaviour sequence
+- **t**: index over V
+
+Evaluation and constraints are defined by:
+
+- **G**: governance function over V
+- **L**: boundary function over V
+
+The framework separates execution from evaluation.  
+Applications requiring deterministic replay, analysis or independent evaluation can be expressed through this structure.
+
+Further development is required for reference implementations, case studies, and operational forms of governance and boundary functions.
+
+---
+
+## 3. Technical Appendix
+
+### A.1 Axiomatic Consistency
+
+The axioms define:
+
+- **S**: state space
+- **Δ**: valid transitions
+- **V**: total order of Δ
+- **t**: derived logical time
+- **G, L**: derived evaluators over V
+
+No circular dependencies occur.  
+Types have single, non overlapping roles.
+
+### A.2 Methodological Points
+
+**Domain independence**
+
+Domain-specific meaning is introduced through interpretation, not through altering the axioms.
+
+**Execution and evaluation separation**
+
+Construction of V and evaluation of V are distinct and non-interacting processes.
+
+**Document structure**
+
+The repository follows a clear progression: axioms → formal semantics → domain mappings → whitepaper.
 
 ### A.3 Open Topics
 
-**Deterministic wrappers for nondeterministic systems**
+**Deterministic wrappers**
 
-Formal definitions for seeded randomness, external calls, and nondeterministic latencies should be added.
+External nondeterministic systems require wrapper definitions not included in the current framework.
 
-**Concurrency to total order**
+**Concurrency reduction**
 
-A deterministic reduction function from concurrent events to V should be defined.
+A method for deriving V from concurrent execution is not defined.
 
-**Operational G and L**
+**Governance and boundary constructions**
 
-Specification of common G and L forms, composition rules, and computational strategies is pending.
+Only the abstract forms G and L are defined.  
+Specific constructions remain open.
 
-**Relation to established theory**
+**Formal positioning**
 
-Explicit mapping to process calculi, trace semantics, and transactional systems would clarify novelty and boundaries.
+The relation to trace semantics, process calculi and transactional models is not articulated.
 
 ### A.4 Assessment
 
-The model is technically coherent and structurally minimal.  
-Practical application requires operational constructs, tooling, and case studies.
+The model is defined at a theoretical level.  
+Practical constructs, tooling, and domain applications require separate elaboration.
 
 ---
 
 ## 4. Evaluator Profile
 
-Evaluation performed from the perspective of:
+Review conducted from the perspective of formal methods, distributed execution models, policy and constraint architectures, and reproducibility systems.
 
-- formal methods
-- distributed execution models
-- governance and constraint architectures
-- reproducibility frameworks
-
-Intended as technical review material for internal or academic use.
+The document is intended as a structural assessment for theoretical and technical contexts.
 
 ---
 
@@ -149,5 +150,5 @@ Intended as technical review material for internal or academic use.
 
 **Version:** 1.0  
 **Date:** 2025-11-30  
-**Status:** Draft, technical  
-**Use:** Whitepaper appendix or internal review
+**Status:** Declarative review  
+**Intended Use:** Whitepaper appendix, technical reference
