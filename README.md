@@ -21,7 +21,7 @@ layer must satisfy.
 
 ## Motivation
 
-Modern systems – from finance to AI governance – require transparent, reproducible  
+Modern systems - from finance to AI governance - require transparent, reproducible  
 and policy-aligned execution. Most architectures treat these as additional layers  
 on top of the actual computation.
 

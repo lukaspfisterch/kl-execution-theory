@@ -1,4 +1,4 @@
-# External Review – KL Execution Theory
+# External Review - KL Execution Theory
 
 This document provides independent evaluation of KL Execution Theory from multiple perspectives: peer review, executive summary, and formal appendix material.
 

@@ -247,9 +247,9 @@ In this configuration:
 
 This creates a coherent stack:
 
-- **KL Execution Theory** – abstract model  
-- **KL Kernel Logic** – deterministic execution engine  
-- **DBL** – boundary and governance architecture built on top
+- **KL Execution Theory** - abstract model  
+- **KL Kernel Logic** - deterministic execution engine  
+- **DBL** - boundary and governance architecture built on top
 
 ---
 

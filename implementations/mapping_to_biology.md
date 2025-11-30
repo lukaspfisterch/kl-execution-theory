@@ -1,7 +1,7 @@
 # Mapping to Biology
 
-This document describes how biological systems – in particular  
-discrete biochemical processes and reaction chains – can be  
+This document describes how biological systems - in particular  
+discrete biochemical processes and reaction chains - can be  
 embedded into KL Execution Theory.
 
 The goal is not to approximate real-world biophysics,  

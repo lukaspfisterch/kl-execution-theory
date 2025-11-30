@@ -1,4 +1,4 @@
-# Whitepaper Outline – KL Execution Theory
+# Whitepaper Outline - KL Execution Theory
 
 This document sketches the structure of a future whitepaper  
 describing KL Execution Theory and its applications.
@@ -15,7 +15,7 @@ Sections can be expanded or re-ordered as the theory matures.
 > KL Execution Theory  
 > A Minimal Axiomatic Model for Deterministic, Auditable Execution
 
-**Abstract (1–2 paragraphs, later refined):**
+**Abstract (1-2 paragraphs, later refined):**
 
 - Problem statement: lack of unified, deterministic execution models for  
   systems that require governance, auditability and replayability.  
@@ -61,31 +61,31 @@ Sections can be expanded or re-ordered as the theory matures.
 - Present the five axioms: Δ, V, t, G, L  
 - Explain the design principles: minimality, determinism, domain neutrality
 
-### 3.2 Axiom 1 – Delta (Δ)
+### 3.2 Axiom 1 - Delta (Δ)
 
 - Atomic, deterministic state transitions  
 - Definition and properties  
 - Non-examples (randomness, side channels)
 
-### 3.3 Axiom 2 – Behaviour (V)
+### 3.3 Axiom 2 - Behaviour (V)
 
 - Ordered sequence of Deltas  
 - Total order, no concurrency at this abstraction level  
 - Behaviour as the canonical representation of execution
 
-### 3.4 Axiom 3 – Time (t)
+### 3.4 Axiom 3 - Time (t)
 
 - Logical time as index into V  
 - No external clocks, no physical time assumptions  
 - Structural ordering, not duration
 
-### 3.5 Axiom 4 – Governance (G)
+### 3.5 Axiom 4 - Governance (G)
 
 - Governance as a derived function of behaviour  
 - Evaluation, not execution  
 - Deterministic classification of behaviour
 
-### 3.6 Axiom 5 – Boundaries (L)
+### 3.6 Axiom 5 - Boundaries (L)
 
 - Boundaries as derived constraint geometry over behaviour  
 - Safe vs unsafe regions, limits, thresholds  
@@ -278,7 +278,7 @@ highlighting its minimality and cross-domain focus.
 
 ## Appendices
 
-### Appendix A – External Evaluation
+### Appendix A - External Evaluation
 
 - Independent peer review of theoretical consistency  
 - Assessment of methodological strengths and open challenges  

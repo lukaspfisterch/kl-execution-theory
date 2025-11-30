@@ -29,27 +29,27 @@ They describe only the **execution substrate**.
 
 ## Axiom List
 
-### 1. Δ — Atomic State Transition  
+### 1. Δ - Atomic State Transition  
 A transition Δ is an indivisible mapping between states.  
 It is the fundamental unit of execution.  
 Full definition in `01_delta.md`.
 
-### 2. V — Ordered Behaviour  
+### 2. V - Ordered Behaviour  
 Behaviour is the ordered sequence of all executed transitions.  
 The system's observable evolution is captured entirely by V.  
 Full definition in `02_behavior.md`.
 
-### 3. t — Logical Time  
+### 3. t - Logical Time  
 Time is identified with the index of a transition inside V.  
 No external or physical time is required.  
 Full definition in `03_time.md`.
 
-### 4. G — Governance Derived From Behaviour  
+### 4. G - Governance Derived From Behaviour  
 Governance is a function over V that evaluates behaviour as valid or invalid.
 It does not modify execution.  
 Full definition in `04_governance.md`.
 
-### 5. L — Boundaries Derived From Behaviour  
+### 5. L - Boundaries Derived From Behaviour  
 Boundaries define permitted or forbidden regions of behaviour, derived solely
 from V.  
 Full definition in `05_boundaries.md`.

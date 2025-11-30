@@ -12,21 +12,21 @@ and the existing KL constructs explicit and stable.
 
 KL Kernel Logic provides:
 
-- `PsiDefinition` – declarative description of an operation  
-- `PsiEnvelope` – transport and metadata container  
-- `Kernel` – deterministic execution engine  
-- `ExecutionContext` – execution parameters and policy hooks  
-- `ExecutionTrace` – structured result of a run  
+- `PsiDefinition` - declarative description of an operation  
+- `PsiEnvelope` - transport and metadata container  
+- `Kernel` - deterministic execution engine  
+- `ExecutionContext` - execution parameters and policy hooks  
+- `ExecutionTrace` - structured result of a run  
 - optional policy and audit layers
 
 KL Execution Theory provides:
 
-- S – state space  
-- Δ – atomic transitions  
-- V – behaviour (sequence of Deltas)  
-- t – logical time (index in V)  
-- G – governance as f(V)  
-- L – boundaries as g(V)
+- S - state space  
+- Δ - atomic transitions  
+- V - behaviour (sequence of Deltas)  
+- t - logical time (index in V)  
+- G - governance as f(V)  
+- L - boundaries as g(V)
 
 KL can be seen as one concrete realisation of this abstract model.
 
@@ -92,7 +92,7 @@ where:
 
 Behaviour V in KL can be interpreted at multiple levels.
 
-#### Level 1 – Single Operation Sequence
+#### Level 1 - Single Operation Sequence
 
 For a single PsiDefinition ψ executed multiple times:
 
@@ -106,7 +106,7 @@ Example:
 
 Each run is one Δ.
 
-#### Level 2 – Multi Operation Program
+#### Level 2 - Multi Operation Program
 
 For a composed system:
 
@@ -321,9 +321,9 @@ but it separates them from the deterministic core.
 7. Governance and Boundaries as KL Modules
 KL can host governance and boundary evaluation as separate modules:
 
-kl_governance – implements G(V)
+kl_governance - implements G(V)
 
-kl_boundaries – implements L(V)
+kl_boundaries - implements L(V)
 
 These modules:
 
@@ -346,19 +346,19 @@ in strict alignment with the theory.
 8. Summary of Correspondence
 The mapping between KL Execution Theory and KL Kernel Logic is:
 
-S – concrete Python-level input / output state structures
+S - concrete Python-level input / output state structures
 
-Δ – individual deterministic Kernel runs of a Psi
+Δ - individual deterministic Kernel runs of a Psi
 
-V – ordered sequence of Kernel runs (behaviour)
+V - ordered sequence of Kernel runs (behaviour)
 
-t – index of each Kernel run in V
+t - index of each Kernel run in V
 
-T – ExecutionTrace plus state snapshots
+T - ExecutionTrace plus state snapshots
 
-G – governance modules evaluating behaviour sequences
+G - governance modules evaluating behaviour sequences
 
-L – boundary modules describing constraint regions over behaviour
+L - boundary modules describing constraint regions over behaviour
 
 KL is therefore a concrete execution engine that can be seen as
 one implementation of the abstract theory defined in this repository.
