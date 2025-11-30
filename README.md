@@ -42,14 +42,49 @@ The result is an execution model that is:
 
 ---
 
-## Structure of this Repository
+## Repository Structure
 
-axioms/ # Core axioms (Delta, Behaviour, Time, Governance, Boundaries)
-formal/ # Formal semantics and mathematical definitions
-implementations/ # Domain mappings (KL Kernel, DBL, Finance, Biology)
-whitepaper/ # Drafts for a future published document
-diagrams/ # Visual materials (SVG/PNG)
+- **[axioms/](axioms/)** - Core axioms (Delta, Behaviour, Time, Governance, Boundaries)
+- **[formal/](formal/)** - Formal semantics and mathematical definitions
+- **[implementations/](implementations/)** - Domain mappings (KL Kernel, DBL, Finance, Biology)
+- **[whitepaper/](whitepaper/)** - Drafts for a future published document
+- **[diagrams/](diagrams/)** - Visual materials (SVG/PNG)
 
+
+---
+
+## Documentation
+
+### Getting Started
+
+- **[Axiom Overview](axioms/00_overview.md)** - Introduction to the five core axioms
+- **[Motivation](whitepaper/motivation.md)** - Why this theory is needed
+- **[Abstract](whitepaper/abstract.md)** - Summary of the theory and its contribution
+
+### Core Axioms
+
+1. **[Delta (Δ)](axioms/01_delta.md)** - Atomic state transitions
+2. **[Behaviour (V)](axioms/02_behavior.md)** - Ordered execution sequences
+3. **[Time (t)](axioms/03_time.md)** - Logical time as index
+4. **[Governance (G)](axioms/04_governance.md)** - Derived policy evaluation
+5. **[Boundaries (L)](axioms/05_boundaries.md)** - Derived constraint geometry
+
+### Formal Foundations
+
+- **[Execution Semantics](formal/execution_semantics.md)** - Mathematical execution model
+- **[State Machine Definition](formal/state_machine_definition.md)** - Formal state machine structure
+- **[Type System](formal/type_system.md)** - Abstract type definitions
+
+### Domain Mappings
+
+- **[Mapping to KL Kernel Logic](implementations/mapping_to_kl.md)** - Concrete implementation
+- **[Mapping to DBL](implementations/mapping_to_dbl.md)** - Deterministic Boundary Layer
+- **[Mapping to Finance](implementations/mapping_to_finance.md)** - Order books and trading
+- **[Mapping to Biology](implementations/mapping_to_biology.md)** - Biochemical processes
+
+### Validation
+
+- **[External Review](whitepaper/external_review.md)** - Independent evaluation and assessment
 
 ---
 
