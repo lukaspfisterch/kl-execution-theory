@@ -1,5 +1,13 @@
 # Mapping to Biology
 
+**Structural Analogy Only**
+
+This mapping is a structural analogy, not a scientific claim about biology.  
+It demonstrates how the execution axioms (Δ → V → t → G → L) appear in systems  
+with biological-like structure. No biological, biochemical or scientific assertions are made.
+
+---
+
 This document describes how biological systems - in particular  
 discrete biochemical processes and reaction chains - can be  
 embedded into KL Execution Theory.

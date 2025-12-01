@@ -77,6 +77,10 @@ The result is an execution model that is:
 
 ### Domain Mappings
 
+**Note:** The domain mappings (biology, finance, computation) are structural analogies.  
+They show how the execution axioms appear in different types of systems.  
+These examples make no scientific or financial claims.
+
 - **[Mapping to KL Kernel Logic](implementations/mapping_to_kl.md)** - Concrete implementation
 - **[Mapping to DBL](implementations/mapping_to_dbl.md)** - Deterministic Boundary Layer
 - **[Mapping to Finance](implementations/mapping_to_finance.md)** - Order books and trading

@@ -1,5 +1,13 @@
 # Mapping to Finance
 
+**Structural Analogy Only**
+
+This mapping is a structural analogy, not a financial theory or market prediction.  
+It demonstrates how the execution axioms (Δ → V → t → G → L) appear in systems  
+with finance-like structure. No financial, economic or trading assertions are made.
+
+---
+
 This document describes how financial systems, in particular  
 order book based trading engines, can be embedded into  
 KL Execution Theory.
