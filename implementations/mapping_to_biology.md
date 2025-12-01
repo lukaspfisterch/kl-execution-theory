@@ -257,7 +257,7 @@ Embedding biology into KL Execution Theory provides:
 
 ## 9. Integration with KL Kernel Logic
 
-In a KL based implementation:
+In a KL-aligned implementation:
 
 - biological states are defined as dataclasses or structured dictionaries  
 - biological Deltas are implemented as pure functions mapped to Psi  
@@ -265,7 +265,7 @@ In a KL based implementation:
 - an orchestrator records biological behaviour and traces  
 - specialised modules compute G(V) and L(V) for biological scenarios
 
-This allows KL to host:
+This allows a KL-aligned system to host:
 
 - small educational biological examples  
 - more complex discrete biological models  

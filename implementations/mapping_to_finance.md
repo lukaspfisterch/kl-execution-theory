@@ -254,7 +254,7 @@ Embedding finance into KL Execution Theory provides:
 
 ## 9. Integration with KL Kernel Logic
 
-In a KL based implementation:
+In a KL-aligned implementation:
 
 - financial state types are defined as Python classes or dataclasses  
 - financial Deltas are implemented as pure functions mapped to Psi  
@@ -262,7 +262,7 @@ In a KL based implementation:
 - an orchestrator records behaviour and traces  
 - dedicated modules compute G(V) and L(V) for finance
 
-This allows KL to host:
+This allows a KL-aligned system to host:
 
 - simple educational order book examples  
 - more complex financial engines  

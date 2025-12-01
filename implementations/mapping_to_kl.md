@@ -1,38 +1,45 @@
 # Mapping to KL Kernel Logic
 
-This document explains how KL Kernel Logic (KL) can be interpreted  
-as a concrete implementation of KL Execution Theory.
+This document explains how KL Kernel Logic (version 1.0) implements  
+KL Execution Theory as a concrete, minimal execution substrate.
 
-The goal is to make the correspondence between the abstract axioms  
-and the existing KL constructs explicit and stable.
+The goal is to make the correspondence between the abstract theory  
+and the implementation explicit and stable.
 
 ---
 
 ## 1. Overview
 
-KL Kernel Logic provides:
+KL Kernel Logic implements the 5-element execution chain:
 
-- `PsiDefinition` - declarative description of an operation  
-- `PsiEnvelope` - transport and metadata container  
-- `Kernel` - deterministic execution engine  
-- `ExecutionContext` - execution parameters and policy hooks  
-- `ExecutionTrace` - structured result of a run  
-- optional policy and audit layers
+```
+Δ → V → t → G(V) → SS
+```
 
-KL Execution Theory provides:
+**KL Kernel Logic provides:**
+
+- `PsiDefinition` - declarative operation description  
+- `PsiEnvelope` - versioned transport container  
+- `Kernel` - atomic execution engine  
+- `CAEL` - controlled execution with governance  
+- `ExecutionContext` - execution parameters and policy  
+- `ExecutionTrace` - complete execution record  
+- `AuditReport` - governance and audit aggregation
+
+**KL Execution Theory defines:**
 
 - S - state space  
-- Δ - atomic transitions  
-- V - behaviour (sequence of Deltas)  
+- Δ - atomic state transitions  
+- V - ordered behaviour sequence  
 - t - logical time (index in V)  
-- G - governance as f(V)  
-- L - boundaries as g(V)
+- G(V) - governance function over behaviour  
+- SS - shadow state (persisted governance record)
 
-KL can be seen as one concrete realisation of this abstract model.
+KL Kernel Logic is a concrete realization of this abstract model.
 
 ---
 
-## 2. Mapping of Core Concepts
+## 2. Mapping the 5-Element Chain
 
 ### 2.1 State (S)
 
@@ -144,126 +151,136 @@ It is sufficient to:
 
 ---
 
-### 2.5 Governance (G)
+### 2.5 Governance Function (G(V))
 
-In KL, governance can be implemented as:
+In KL Kernel Logic, governance is implemented through:
 
-- a separate evaluation layer that inspects execution traces,  
-  input or output bindings and envelope metadata.
+- `PolicyEngine` interface - evaluates individual operations  
+- `CAEL` layer - applies policy evaluation during execution  
+- Governance evaluation over trace sequences
 
-Given a sequence of Kernel runs (behaviour) and their traces:
+Given a sequence of Kernel runs (behaviour V) and their traces:
 
-- G reads the collected traces  
-- G applies deterministic rules or policies  
-- G classifies behaviour (valid or invalid, allowed or disallowed, etc.)
+- G reads the collected ExecutionTrace objects  
+- G applies deterministic policy rules  
+- G classifies behaviour (allowed/denied, compliant/non-compliant, etc.)
 
-Structurally, this is exactly:
+Structurally, this is:
 
-**G = f(V)**
+**G(V) : V → D**
 
-with V represented by the recorded chain of Kernel executions  
-and their associated traces.
+where V is the behaviour sequence and D is the governance decision.
 
-Governance must not:
+In KL, G(V) can be evaluated:
 
-- modify past traces  
-- rewrite behaviour  
-- alter execution after the fact
+- **Before execution** - `PolicyEngine.evaluate(psi)` checks proposed operations  
+- **During execution** - `CAEL` enforces policy at each Δ  
+- **After execution** - retrospective governance over complete trace sequences
 
-It remains purely evaluative.
-
----
-
-### 2.6 Boundaries (L)
-
-Boundaries in KL can be expressed as:
-
-- derived metrics and constraint descriptions over execution history.
-
-Examples:
-
-- resource usage envelopes (time, memory, calls)  
-- value ranges (e.g. numeric output bounds)  
-- safety regions for model use  
-- financial exposure envelopes in finance-related modules
-
-In all cases, L is computed from V (behaviour) and its traces,  
-and describes:
-
-- which regions of behaviour are inside or outside acceptable ranges.
-
-This corresponds directly to:
-
-**L = g(V)**
-
-where KL provides:
-
-- trace data  
-- structured outputs  
-- stable IDs and timestamps
+Governance remains purely evaluative and does not modify V.
 
 ---
 
-## 3. Role of Psi in the Mapping
+### 2.6 Shadow State (SS)
 
-`PsiDefinition` is the declarative description of a Delta family.
+Shadow State is the persistent governance record derived from G(V).
 
-It does not execute anything on its own.  
-It describes:
+In KL Kernel Logic, SS is implemented through:
 
-- operation type  
-- domain  
-- effect class (e.g. pure, stateful, external)  
+- `ExecutionTrace` objects - capture each Δ with governance metadata  
+- `PolicyDecision` records - embedded governance decisions  
+- `AuditReport` - aggregated governance data  
+- Trace persistence - external storage (JSONL, database, audit logs)
+
+Shadow State represents:
+
+- Which policies were applied  
+- Which operations were allowed or denied  
+- Resource consumption patterns  
+- Constraint satisfaction records  
+- Complete audit trail
+
+Formally:
+
+**SS = G(V) evaluated and persisted**
+
+KL provides SS through:
+
+- Structured trace data with policy decisions  
+- Serializable audit reports  
+- Complete execution history for compliance verification  
+- Deterministic replay capability
+
+SS enables auditability without re-execution.
+
+---
+
+## 3. Role of Psi in the 5-Element Chain
+
+`PsiDefinition` is the declarative specification of an operation.
+
+It describes the intent of a transition without executing it:
+
+- operation type (e.g. "math.add", "text.transform")  
+- domain (e.g. "math", "text", "io")  
+- effect class (e.g. "pure", "read", "io", "external", "ai")  
 - constraints and metadata
 
-In KL Execution Theory terms:
+In the 5-element chain:
 
-- Psi defines the *shape* of Δ, not its execution.  
-- Concrete executions of Psi by the Kernel are the actual Deltas.
+- **Psi defines what Δ will do** (the operation specification)  
+- **Kernel executes Δ** (atomic state transition)  
+- **ExecutionTrace captures Δ in V** (behaviour sequence)
 
 Therefore:
 
-- Psi is part of the specification of Δ  
-- the Kernel plus implementation code realise Δ
+- Psi is the *specification* of Δ  
+- Kernel + task function is the *realization* of Δ  
+- ExecutionTrace is the *record* of Δ in V
 
 ---
 
-## 4. ExecutionTrace as Concrete Trace (T)
+## 4. ExecutionTrace in the 5-Element Chain
 
-KL typically returns an `ExecutionTrace` structure that may include:
+`ExecutionTrace` is the concrete record of a single Δ execution.
 
-- psi information  
-- envelope metadata  
-- success flag  
-- input and output snapshots  
-- timestamps  
-- error messages (if any)  
-- optional policy evaluation hooks
+It captures:
 
-This can be mapped directly to the abstract trace concept T:
+- **psi** - the operation definition (Psi)  
+- **envelope** - versioned transport container (PsiEnvelope)  
+- **output** - result of the transition  
+- **success** - whether execution completed  
+- **error** - exception message if failed  
+- **started_at**, **finished_at** - RFC 3339 timestamps (audit metadata)  
+- **runtime_ms** - execution duration
 
-**T = { (t, s_t, Δ_t, s_{t+1}, meta_t) }**
+Role in the chain:
 
-where `meta_t` captures implementation-specific details,  
-including environment, timing and auxiliary data.
+- **ExecutionTrace records one Δ** (single atomic transition)  
+- **Sequence of traces forms V** (behaviour)  
+- **Trace index is t** (logical time)  
+- **Trace contains governance metadata** (policy decisions)  
+- **Trace contributes to SS** (shadow state persistence)
 
-The abstract theory does not constrain which metadata is stored,  
-only that:
+`ExecutionTrace` is therefore the fundamental building block  
+of the complete 5-element chain in KL Kernel Logic.
 
-- the trace is coherent  
-- it is sufficient to replay and evaluate behaviour  
-- it aligns with deterministic execution.
+The trace is:
+
+- Complete (sufficient to replay and evaluate)  
+- Deterministic (same inputs → same trace structure)  
+- Serializable (can be persisted for audit)
 
 ---
 
 ## 5. Implementing Behaviour Capture in KL
 
-To explicitly realise V and T in KL, an orchestrator can:
+To explicitly realize V and the 5-element chain in KL, an orchestrator can:
 
-1. Maintain a list of execution records:
+1. Maintain a list of execution records (V):
 
 ```python
-behaviour = []
+behaviour = []  # V - behaviour sequence
 ```
 
 2. For each Kernel call, record:
@@ -277,85 +294,114 @@ behaviour = []
 
 ```python
 behaviour.append({
-    "t": t,
-    "psi": psi,
-    "input": input_state,
-    "output": result.output,
-    "trace": result.trace,
+    "t": t,                    # logical time
+    "psi": psi,                # operation definition
+    "input": input_state,      # pre-state
+    "output": result.output,   # post-state
+    "trace": result.trace,     # execution record
 })
 ```
 
-4. After execution, pass behaviour to:
-   - a governance evaluator `G(behaviour)`
-   - a boundary evaluator `L(behaviour)`
+4. After execution, evaluate the complete chain:
+   - **V** - the behaviour list itself
+   - **G(V)** - governance evaluation over behaviour
+   - **SS** - persist governance decisions and audit records
 
-This pattern gives KL an explicit, theory-aligned behaviour representation.
-
----
-
-## 6. Determinism Requirements for KL
-
-To fully align with KL Execution Theory, a KL-based system should:
-
-1. Ensure that operation implementations are deterministic:
-   - no uncontrolled randomness
-   - no hidden global state
-   - no time-dependent logic that affects results
-
-2. Make environment dependencies explicit:
-   - encode configuration into the state or context
-   - avoid referencing mutable global structures directly
-
-3. Treat nondeterministic tasks as outside the core deterministic model,  
-   or wrap them with explicit logging and normalisation.
-
-This does not forbid nondeterministic components,  
-but it separates them from the deterministic core.
+This pattern gives KL an explicit, theory-aligned implementation  
+of the complete 5-element chain: Δ → V → t → G(V) → SS.
 
 ---
 
-## 7. Governance and Boundaries as KL Modules
+## 6. Determinism and the 5-Element Chain
 
-KL can host governance and boundary evaluation as separate modules:
+For the 5-element chain to hold, operations must satisfy:
 
-- `kl_governance` - implements G(V)
-- `kl_boundaries` - implements L(V)
+**For Δ (Atomic Transition):**
+- Same input → same output (deterministic tasks)  
+- No hidden global state  
+- No uncontrolled randomness
 
-These modules:
+**For V (Behaviour):**
+- Total ordering preserved  
+- All transitions recorded  
+- No hidden execution paths
 
-- do not execute Kernel operations
-- only read behaviour and trace data
-- produce structured, deterministic evaluations
+**For t (Logical Time):**
+- Derived from sequence position  
+- Monotonic and discrete
+
+**For G(V) (Governance):**
+- Deterministic evaluation (same V → same decision)  
+- Non-executing (does not modify V)  
+- Behaviour-derived only
+
+**For SS (Shadow State):**
+- Complete persistence of G(V) decisions  
+- Queryable without re-execution
+
+Non-deterministic operations (AI inference, external API calls)  
+are supported but explicitly classified via effect classes.  
+The chain structure holds; the determinism guarantee is scoped  
+to the execution mechanism, not the task semantics.
+
+---
+
+## 7. Governance and Shadow State in KL
+
+KL implements governance through:
+
+- `PolicyEngine` - deterministic policy evaluation  
+- `CAEL` - policy enforcement during execution  
+- Governance modules - retrospective evaluation of behaviour sequences
+
+Shadow State is captured through:
+
+- `ExecutionTrace` - complete execution record per Δ  
+- `AuditReport` - aggregated governance and compliance data  
+- Trace persistence - external audit storage
+
+These components:
+
+- do not execute operations (remain evaluative)  
+- only read behaviour and trace data  
+- produce deterministic governance records
 
 This preserves the separation between:
 
-- execution
-- evaluation
-- constraint description
+- execution (Kernel produces V)  
+- governance (G evaluates V)  
+- audit (SS persists G(V))
 
-in strict alignment with the theory.
+in strict alignment with the 5-element chain.
 
 ---
 
 ## 8. Summary of Correspondence
 
-The mapping between KL Execution Theory and KL Kernel Logic is:
+The 5-element chain mapping between KL Execution Theory and KL Kernel Logic:
 
-- **S** - concrete Python-level input or output state structures
-- **Δ** - individual deterministic Kernel runs of a Psi
-- **V** - ordered sequence of Kernel runs (behaviour)
-- **t** - index of each Kernel run in V
-- **T** - ExecutionTrace plus state snapshots
-- **G** - governance modules evaluating behaviour sequences
-- **L** - boundary modules describing constraint regions over behaviour
+| Theory | KL Kernel Logic Implementation |
+|--------|-------------------------------|
+| **S** | Python input/output state structures |
+| **Δ** | `Kernel.execute()` call (atomic transition) |
+| **V** | Ordered sequence of `ExecutionTrace` objects |
+| **t** | List index + timing metadata (`runtime_ms`) |
+| **G(V)** | `PolicyEngine` + governance evaluation over traces |
+| **SS** | `ExecutionTrace` + `AuditReport` + trace persistence |
 
-KL is therefore a concrete execution engine that can be seen as  
-one implementation of the abstract theory defined in this repository.
+KL Kernel Logic implements the complete 5-element chain:
 
-Future KL modules and orchestrators should aim to make this mapping  
-explicit, so that:
+```
+Δ → V → t → G(V) → SS
+```
 
-- traces are stable
-- behaviour is replayable
-- governance and boundaries can be evaluated independently
-- the theory can serve as a reference for correctness and design.
+This mapping ensures:
+
+- Traces are stable and complete  
+- Behaviour is replayable (deterministic V)  
+- Governance is evaluative (G(V) does not modify V)  
+- Shadow State enables audit without re-execution  
+- The theory serves as formal foundation for implementation correctness
+
+KL Kernel Logic is a concrete, minimal execution substrate that  
+directly realizes the abstract execution model defined in this repository.

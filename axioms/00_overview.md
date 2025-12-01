@@ -1,117 +1,106 @@
 # Axiom Overview
 
-This document provides a concise overview of the minimal axiom set that forms the
-foundation of the KL Execution Theory.  
-Each axiom defines one structural element of a deterministic execution model.
-Nothing more than required is included, and no axiom contains assumptions from
-any domain.
+KL Execution Theory describes deterministic execution using a small set of
+core concepts:
 
-The full definitions are detailed in the subsequent files.
+- **S** – States of a system  
+- **Δ** – Atomic state transitions  
+- **V** – Ordered behaviour as a sequence of Deltas  
+- **t** – Logical time as index into behaviour  
+- **G** – Governance derived from behaviour  
+- **L** – Boundaries derived from behaviour  
 
----
-
-## Purpose
-
-The axiom set establishes:
-
-- a universal structure for deterministic execution,
-- a total ordering of state transitions,
-- logical time independent of clocks,
-- derived governance and constraint layers,
-- and a domain-neutral framework suitable for any system that can be represented
-  as state plus transitions.
-
-The axioms do not prescribe semantics, policies, rates, or domain-specific
-behaviour.  
-They describe only the **execution substrate**.
+This document introduces the five core axioms. Each axiom has its own
+dedicated file with a precise definition and further discussion.
 
 ---
 
-## Axiom List
+## 1. States and Deltas
 
-### 1. Δ - Atomic State Transition  
-A transition Δ is an indivisible mapping between states.  
-It is the fundamental unit of execution.  
-Full definition in `01_delta.md`.
+A system has a set of possible states **S**.
 
-### 2. V - Ordered Behaviour  
-Behaviour is the ordered sequence of all executed transitions.  
-The system's observable evolution is captured entirely by V.  
-Full definition in `02_behavior.md`.
+Execution proceeds through **atomic and indivisible state transitions**:
 
-### 3. t - Logical Time  
-Time is identified with the index of a transition inside V.  
-No external or physical time is required.  
-Full definition in `03_time.md`.
+> Δ: S → S
 
-### 4. G - Governance Derived From Behaviour  
-Governance is a function over V that evaluates behaviour as valid or invalid.
-It does not modify execution.  
-Full definition in `04_governance.md`.
-
-### 5. L - Boundaries Derived From Behaviour  
-Boundaries define permitted or forbidden regions of behaviour, derived solely
-from V.  
-Full definition in `05_boundaries.md`.
+Each Δ consumes one state and produces the next state.  
+Δ is not decomposed further at the chosen level of abstraction.
 
 ---
 
-## Minimality
+## 2. Behaviour (V)
 
-No axiom can be removed without losing determinism or completeness.  
-No axiom can be expanded without introducing domain assumptions.  
-The set is intentionally small.
+**Behaviour V** is the ordered sequence of all executed Deltas:
 
-- Δ ensures atomicity and functional transitions.  
-- V ensures total ordering and replayability.  
-- t ensures logical time without physical clocks.  
-- G ensures evaluation without interference.  
-- L ensures constraints as derivations, not primitives.
+> V = { Δ₀, Δ₁, …, Δₙ }
 
-This establishes a strict separation between execution and interpretation.
+There is no parallelism at the level of the theory.  
+Only one Delta is applied at a time, and behaviour is the total sequence
+of these transitions.
 
 ---
 
-## Domain Neutrality
+## 3. Logical Time (t)
 
-The axioms do not assume:
+Logical time **t** is derived from behaviour.
 
-- Finance  
-- Biology  
-- Artificial Intelligence  
-- Distributed Systems  
-- Mathematical Simulation  
-- Policy or Regulation  
-- Real-time Constraints
+Time is the index of a Delta in the sequence V:
 
-Any domain can be mapped to this structure by defining:
+> t ∈ {0, 1, …, n}  
+> Δₜ is the Delta at logical time t
 
-1. a state representation,  
-2. a transition function (Δ),  
-3. and the interpretation of derived governance or boundaries.
+There is no external clock.  
+Time exists only because behaviour exists and can be indexed.
 
 ---
 
-## Derivability
+## 4. Governance (G)
 
-The following emerge automatically from the axiom set:
+Governance **G** is a function over behaviour:
 
-- **Replayability**  
-  Behaviour V fully determines system evolution.
+> G = f(V)
 
-- **Auditability**  
-  G(V) evaluates behaviour without re-execution.
+G does not execute or modify behaviour.  
+It classifies behaviour according to some policy view, for example:
 
-- **Deterministic Time**  
-  t is an inherent index, not an external clock.
+- valid vs invalid  
+- compliant vs non-compliant  
+- acceptable vs unacceptable
 
-- **Policy Application**  
-  Policies become interpretations of G and L, not built-in rules.
+All governance is derived from the executed behaviour V.
 
 ---
 
-## Stability
+## 5. Boundaries (L)
 
-This overview defines the stable core.  
-Extensions, domain mappings, and implementation guidelines are provided in
-separate sections of the repository.
+Boundaries **L** describe the constraint geometry induced by behaviour:
+
+> L = g(V)
+
+L captures which regions of state and behaviour space are:
+
+- allowed or disallowed  
+- safe or unsafe  
+- inside or outside design constraints
+
+Like G, boundaries do not execute or control behaviour.  
+They are derived descriptions of which regions are visited, avoided or
+forbidden under a given perspective.
+
+---
+
+## 6. Derived Execution View
+
+The theory does not introduce a separate axiom for "execution".
+
+Execution is the **emergent view** of:
+
+- states S  
+- atomic transitions Δ  
+- behaviour V as the ordered sequence of Deltas  
+- logical time t as the index into V  
+- governance G and boundaries L as derived evaluators
+
+This keeps the axiom set minimal while still supporting rich
+interpretations in concrete domains (software, finance, biology,
+governance systems and more).

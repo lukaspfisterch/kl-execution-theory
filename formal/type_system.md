@@ -161,7 +161,7 @@ where:
 
 **Examples (conceptual):**
 
-- a log of Kernel executions with full input/output  
+- a log of execution steps with full input/output  
 - a detailed ledger of state transitions in a simulation
 
 ---
