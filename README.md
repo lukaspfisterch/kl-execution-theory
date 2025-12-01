@@ -133,6 +133,13 @@ Future steps will include:
 
 ---
 
+## Related Projects
+
+This document describes the theoretical structure behind deterministic execution: Δ, V, t, G(V) and SS.  
+These axioms are implemented in **[KL Kernel Logic](https://github.com/lukaspfisterch/kl-kernel-logic)** and provide the foundation for the **[Deterministic Boundary Layer (DBL)](https://github.com/lukaspfisterch/deterministic-boundary-layer)**.
+
+---
+
 ## License
 
 MIT License  
