@@ -34,6 +34,28 @@ but the structural role of G is not.
 
 ---
 
+## Minimal Contract (Implementation)
+
+Inputs:
+- V (complete behaviour sequence)
+
+Outputs:
+- D (governance decision record)
+
+Invariants:
+- Totality: defined for all valid V
+- Determinism: same V -> same D
+- Purity: no side effects; does not execute or modify V
+- Behaviour-derived only (no external state)
+
+Optional constraint:
+- If online evaluation is required, define G_prefix that depends only on prefix(V); otherwise G may depend on full V. Must be explicit.
+
+Non-Goals:
+- Runtime enforcement or control flow
+
+---
+
 ## Properties
 
 ### 1. Non-Executing
@@ -167,6 +189,12 @@ Governance may:
 
 However, G does not change the definition of time.  
 It merely uses logical time as a reference system.
+
+---
+
+## Failure Modes Addressed
+- FM-5 Governance decision not derivable from V (uses external state).
+- FM-8 Governance or boundaries execute or modify behaviour.
 
 ---
 

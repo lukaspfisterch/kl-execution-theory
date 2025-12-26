@@ -36,6 +36,28 @@ The fact that it is derived from V is not.
 
 ---
 
+## Minimal Contract (Implementation)
+
+Inputs:
+- V (complete behaviour sequence)
+
+Outputs:
+- B (boundary representation)
+
+Invariants:
+- Totality: defined for all valid V
+- Determinism: same V -> same B
+- Purity: no side effects; does not execute or modify V
+- Behaviour-derived only (no external state)
+
+Optional constraint:
+- If online evaluation is required, define L_prefix that depends only on prefix(V); otherwise L may depend on full V. Must be explicit.
+
+Non-Goals:
+- Runtime enforcement or control flow
+
+---
+
 ## Properties
 
 ### 1. Behaviour-Derived
@@ -176,6 +198,12 @@ it can:
 
 Time remains logical (index-based).  
 Boundaries simply project constraints onto this time-indexed behaviour.
+
+---
+
+## Failure Modes Addressed
+- FM-6 Boundary violation not deterministically demonstrable from V.
+- FM-8 Governance or boundaries execute or modify behaviour.
 
 ---
 

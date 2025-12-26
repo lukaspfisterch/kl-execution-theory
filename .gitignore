@@ -1,0 +1,52 @@
+# General
+.DS_Store
+Thumbs.db
+
+# Python (if used for tooling)
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Docs/build outputs
+build/
+dist/
+site/
+docs/_build/
+
+# LaTeX artifacts (if whitepaper builds are generated)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# Editor
+.vscode/
+.idea/
+.obsidian/
+.history/
+
+# OS
+*.swp
+*~
+.env
+.env.*

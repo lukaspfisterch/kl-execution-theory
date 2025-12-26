@@ -13,6 +13,18 @@ core concepts:
 This document introduces the five core axioms. Each axiom has its own
 dedicated file with a precise definition and further discussion.
 
+## Failure Modes (Index)
+- FM-1 Non-deterministic Delta (same state -> different output).
+- FM-2 Behaviour incomplete (executed step missing from V).
+- FM-3 Logical time ambiguous or not index-based.
+- FM-4 Trace not reproducible given same s0 and V.
+- FM-5 Governance decision not derivable from V (uses external state).
+- FM-6 Boundary violation not deterministically demonstrable from V.
+- FM-7 Observational time treated as semantic ordering (t_wall/t_perf used as t_index).
+- FM-8 Governance or boundaries execute or modify behaviour.
+
+Each axiom file includes a short FM mapping back to this list.
+
 ---
 
 ## 1. States and Deltas

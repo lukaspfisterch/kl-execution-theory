@@ -23,6 +23,25 @@ Parallelism does not exist at the level of this abstraction.
 
 ---
 
+## Minimal Contract (Implementation)
+
+Inputs:
+- ordered list of Deltas, each ?: S -> S
+
+Outputs:
+- V as total order of executed Deltas
+
+Invariants:
+- Completeness: every executed Delta appears exactly once in V
+- Total order: all Deltas are comparable by position
+- Deterministic replay given s0 and V
+
+Non-Goals:
+- Concurrent or unordered execution graphs
+- Partial or lossy traces
+
+---
+
 ## Properties
 
 ### 1. Total Order
@@ -72,7 +91,7 @@ for example within a domain or an evaluation layer.
 
 ## Interpretation
 
-Behaviour is the **only** observable manifestation of execution.
+Behaviour is the canonical observable structure of execution.
 
 It represents:
 
@@ -126,6 +145,12 @@ Time is simply:
 **t = index(V)**
 
 (This is covered in Axiom 3.)
+
+---
+
+## Failure Modes Addressed
+- FM-2 Behaviour incomplete (executed step missing from V).
+- FM-4 Trace not reproducible given same s0 and V.
 
 ---
 

@@ -87,6 +87,9 @@ where:
 
 Traces make the evolution of the system explicit and auditable.
 
+A trace is an observable projection of a single execution.
+It is not authoritative system state and does not replace S or V.
+
 Traces are a refinement of behaviour V, not a separate concept.  
 V records which Deltas were applied.  
 T records which states they were applied to and what they produced.
@@ -130,7 +133,16 @@ Examples of observables:
 - governance results G(V)  
 - boundary structures L(V)
 
+Observables may include timing projections captured at runtime:
+
+- t_wall: wall clock timestamps (ordering-unsafe due to clock adjustments)
+- t_perf: monotonic durations (duration-safe, not semantic ordering)
+
+These projections are optional and must not replace t_index, which is derived from V.
+
 Observables are always functions of V and S, never of hidden context.
+
+Operational metadata such as kernel_meta belongs to implementations and is out of theory scope.
 
 ---
 

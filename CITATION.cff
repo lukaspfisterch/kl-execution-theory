@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use KL Execution Theory, please cite this repository."
+title: "KL Execution Theory"
+version: "0.1.0"
+license: "MIT"
+repository-code: "https://github.com/lukaspfisterch/kl-execution-theory"
+abstract: "Minimal, domain-agnostic execution theory based on axioms for Delta, Behaviour, Time, Governance, and Boundaries."
+keywords:
+  - execution
+  - determinism
+  - governance
+  - theory
+  - axioms
+  - trace

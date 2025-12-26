@@ -14,8 +14,9 @@ This repository defines a conceptual foundation for future implementations such 
 - Policy-first execution environments
 
 The theory itself is independent of any codebase.  
-It aims to describe the **universal principles** that any deterministic execution  
+It aims to describe the **domain-agnostic structural principles** that any deterministic execution  
 layer must satisfy.
+Operational metadata such as kernel_meta belongs to implementations and is out of theory scope.
 
 ---
 
@@ -113,9 +114,25 @@ This leads to:
 
 ---
 
+## Non-Goals
+
+This theory deliberately does not define:
+- concrete execution engines or runtimes
+- performance characteristics
+- concurrency or parallelism models
+- storage, persistence, or transport layers
+- operational metadata or telemetry
+
+These concerns belong to implementations built on top of the theory,
+not to the axiomatic layer itself.
+
+---
+
 ## Status
 
 This is the initial version of the theory repository.  
+The axioms are intended to be stable once published; future changes are expected
+to be refinements and clarifications, not semantic rewrites.
 The goal is not completeness, but preservation and iterative refinement.
 
 An independent external review has been conducted and is available in  
@@ -133,6 +150,14 @@ Future steps will include:
 
 ---
 
+## Versioning Policy
+
+- 0.x: Axioms and terms may still change.
+- 1.0: Axioms and terms are stable; changes are clarifications or additive extensions.
+- Breaking changes: minor bump in 0.x, major bump at 1.0+.
+
+---
+
 ## Related Projects
 
 This document describes the theoretical structure behind deterministic execution: Δ, V, t, G(V) and SS.  
@@ -142,5 +167,4 @@ These axioms are implemented in **[KL Kernel Logic](https://github.com/lukaspfis
 
 ## License
 
-MIT License  
-See LICENSE for details.
+MIT License.

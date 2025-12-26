@@ -24,6 +24,24 @@ There is no additional temporal dimension.
 
 ---
 
+## Minimal Contract (Implementation)
+
+Inputs:
+- V (ordered behaviour sequence)
+
+Outputs:
+- t_index in {0..n} and mapping t_index -> Delta in V
+
+Invariants:
+- Derived only from V
+- Discrete and order-preserving
+- No external clock dependence
+
+Non-Goals:
+- Wall clock time, durations, calendars
+
+---
+
 ## Properties
 
 ### 1. Derived, Not Fundamental
@@ -61,6 +79,15 @@ Time does not encode:
 - real world clocks
 
 Any such mapping is an external interpretation, not part of the axiom.
+
+---
+
+## Observational Time Projections
+
+The following are optional projections captured during execution:
+- t_wall: wall clock timestamps; ordering-unsafe due to clock adjustments
+- t_perf: monotonic duration; duration-safe but not semantic ordering
+- t_index: semantic ordering within V and remains authoritative
 
 ---
 
@@ -122,6 +149,12 @@ Time is therefore:
 - derived from V  
 - monotonic in the index  
 - sufficient to address any executed Delta
+
+---
+
+## Failure Modes Addressed
+- FM-3 Logical time ambiguous or not index-based.
+- FM-7 Observational time treated as semantic ordering (t_wall/t_perf used as t_index).
 
 ---
 

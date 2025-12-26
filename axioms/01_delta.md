@@ -23,6 +23,26 @@ It is atomic by definition.
 
 ---
 
+## Minimal Contract (Implementation)
+
+Inputs:
+- state s in S
+
+Outputs:
+- state s' in S
+
+Invariants:
+- Total function over valid S
+- Determinism: same s -> same s'
+- Atomicity: no intermediate observable states
+- Purity: no side channels (no time, randomness, external IO)
+
+Non-Goals:
+- Parallel or decomposed sub-steps
+- Probabilistic transitions
+
+---
+
 ## Properties
 
 ### 1. Indivisibility
@@ -119,6 +139,11 @@ Sequences of Δ define all observable behaviour of a system:
 **V = { Δ₀, Δ₁, …, Δₙ }**
 
 No additional structure is required to describe execution.
+
+---
+
+## Failure Modes Addressed
+- FM-1 Non-deterministic Delta (same state -> different output).
 
 ---
 
