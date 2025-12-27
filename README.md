@@ -17,6 +17,8 @@ The theory itself is independent of any codebase.
 It aims to describe the **domain-agnostic structural principles** that any deterministic execution  
 layer must satisfy.
 Operational metadata such as kernel_meta belongs to implementations and is out of theory scope.
+The execution model formalized here is specified in “Execution Without Normativity”:
+https://github.com/lukaspfisterch/execution-without-normativity
 
 ---
 
@@ -155,6 +157,15 @@ Future steps will include:
 - 0.x: Axioms and terms may still change.
 - 1.0: Axioms and terms are stable; changes are clarifications or additive extensions.
 - Breaking changes: minor bump in 0.x, major bump at 1.0+.
+
+---
+
+## Reference Implementation
+
+The hardened reference kernel aligned with this theory is:
+
+- KL Kernel Logic v0.5.0  
+  https://github.com/lukaspfisterch/kl-kernel-logic
 
 ---
 
