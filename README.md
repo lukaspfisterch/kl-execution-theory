@@ -184,7 +184,3 @@ These axioms are implemented in **[KL Kernel Logic](https://github.com/lukaspfis
 
 ---
 
-## License
-
-MIT License.
-
