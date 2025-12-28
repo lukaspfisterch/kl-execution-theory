@@ -1,14 +1,13 @@
-# kl-execution-theory (archived)
+# KL Execution Theory (archived)
 
 This repository represents an early exploratory phase of the execution model
 that later converged into a closed axiomatic formulation.
 
 The canonical and authoritative theory is now defined in:
-→ https://github.com/lukaspfisterch/execution-without-normativity
+https://github.com/lukaspfisterch/execution-without-normativity
 
 This repository is preserved for historical and developmental context only.
-
-
+---
 A minimal and domain-agnostic execution model based on a small set of axioms.  
 The goal of this repository is to preserve and formalize the core structure behind  
 deterministic execution, ordered behaviour, derived governance and domain-neutral  
@@ -188,3 +187,4 @@ These axioms are implemented in **[KL Kernel Logic](https://github.com/lukaspfis
 ## License
 
 MIT License.
+
